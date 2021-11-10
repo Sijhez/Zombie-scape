@@ -8,8 +8,22 @@
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
+  <div id="gameStart">
+    <div class="container">
+      <div>
+        <h1 style="font-size: 5em;">Escape Zombie</h1>
+        <h1>
+          Bienvenido soldado.
+        </h1>
+       <button id="playButton" onclick="startGame();">
+         Jugar!
+       </button>
+      </div>
+      
+    </div>
+  </div>
     <header>    
-        <h1>Scape zombies</h1>
+        <h1>Escape zombie</h1>
          <!-- PORTADA E HISTORIA AQUI -->
     </header>
     <main>
@@ -17,6 +31,31 @@
           <!-- instrucciones del juego -->
       </aside>
       <section>
+        <!-- FIN DEL JUEGO -->
+        <div id="endGame">
+          <div class="container">
+            <div>
+              <h1 class="finish">
+                El juego terminó!
+              </h1>
+              <h2>Zombies muertos: <span id="numZombies"></span></h2>
+              <h2>Score total: <span id="totalNum"></span></h2>
+            </div>
+            
+          </div>
+        </div>
+
+        <div id="killedSoldier">
+          <div class="container">
+            <div>
+              <h1 class="finish">
+               ¡Soldado Caído!
+              </h1>
+             <button onclick="startGame();">Reiniciar</button>
+            </div>
+            
+          </div>
+        </div>
         <canvas id="myCanvas" width="1000" height="500" style="border: 1px solid crimson; border-radius: 10px;"></canvas>
         <canvas id="status" width="1000" height="100" style="border: 1px solid #fff; border-radius: 10px;"></canvas>
       </section>
