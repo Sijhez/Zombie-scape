@@ -1,4 +1,5 @@
 body{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin: 0px;
     padding: 0px;
     background: #292925;
@@ -8,4 +9,7 @@ body{
 }
 canvas{
     background: #fff;
+}
+#status{
+    background: #181813;
 }
