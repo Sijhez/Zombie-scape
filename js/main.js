@@ -506,6 +506,9 @@ function moneyGone(){
     });
 }
 
+
+
+
 function drawZombies(){
     allZombies.forEach((zombie)=>zombie.draw());
     allZombies.forEach((zombie)=>{
