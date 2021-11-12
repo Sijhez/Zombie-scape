@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
+  <!-- PANTALLA DE INICIO -->
   <div id="gameStart">
     <div class="container">
       <div>
@@ -21,27 +22,46 @@
       </div>
       
     </div>
+    <img src="media/portadaZombie.jpg" class="portadita" alt="">
   </div>
     <header>    
         <h1>Escape zombie</h1>
          <!-- PORTADA E HISTORIA AQUI -->
     </header>
     <main>
-      <aside>
+      <aside><p>
+        SOLDADO:
+         Debes eliminar a la mayor parte de zombies 
+         mientras recoges tu botín a lo largo del circuito.
+         <img src="media/else/botones.png" alt=""><br>
+         Usa las flechas de tu teclado para moverte hacia arriba, 
+        abajo, adelante o atrás. <br>
+        <span style="color: orange;">Usa la tecla 'D' para Disparar!</span>
+         
+        
+         <span style="color: crimson;">
+¡CUIDADO!
+      </span>   
+        No dejes que los zombies te acorralen o...¡MORIRÁS!  
+              
+      </p>
           <!-- instrucciones del juego -->
       </aside>
-      <section>
+      <section style="width: 85%;">
         <!-- FIN DEL JUEGO -->
         <div id="endGame">
           <div class="container">
-            <div>
+            <div style="height: 668px; align-content: center;display: flex;
+                flex-direction: column;justify-content: center; background-image:linear-gradient(357deg, black, #2d2d28);">
               <h1 class="finish">
-                El juego terminó!
+                ¡Victoria!
               </h1>
-              <h2>Zombies muertos: <span id="numZombies"></span></h2>
-              <h2>Score total: <span id="totalNum"></span></h2>
+              <h2 style="font-family: monospace; font-size: 2.5em;
+              ">Zombies muertos: <span id="numZombies"></span></h2>
+              <h2 style="font-family: monospace; font-size: 2.5em;">Score total: <span id="totalNum"></span></h2>
               <br>
-              <button onclick="restartGame();">Volver al Inicio</button>
+              <h3 style="font-family: monospace; font-size: 1.5em;">¿Crees poder hacerlo mejor?</h3>
+              <button class="restart" onclick="restartGame();">Volver al Inicio</button>
             </div>
             
           </div>
@@ -49,11 +69,14 @@
 
         <div id="killedSoldier">
           <div class="container">
-            <div>
-              <h1 class="finish">
+            <div style="height: 668px; align-content: center;display: flex;
+            flex-direction: column;justify-content: center; background-image:linear-gradient(357deg, black, #2d2d28);">
+           <div style="height: 668px; background-image:url(media/zombieSoldier.png);background-repeat: no-repeat;
+           opacity: 1;background-size: contain; background-position: center; "></div>             
+             <h1 class="finish">
                ¡Soldado Caído!
               </h1>
-             <button onclick="restartGame();">Volver al Inicio</button>
+             <button class="restart" onclick="restartGame();">Volver al Inicio</button>
             </div>
             
           </div>
@@ -62,7 +85,6 @@
         <canvas id="status" width="1000" height="100" style="border: 1px solid #fff; border-radius: 10px;"></canvas>
       </section>
     </main>
-    
     <script src="js/main.js"></script>
 </body>
 </html>

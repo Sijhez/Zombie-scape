@@ -5,7 +5,6 @@ const ctx = $canvas.getContext("2d");
 const ctxStatus = $status.getContext("2d");
 const startButton = document.querySelector("#playButton");
 const startScreen = document.querySelector("#gameStart");
-const audioBullet = document.querySelector("#balazo")
 let intervalId;
 let gameIsOver = false;
 let frames = 0;
@@ -35,6 +34,17 @@ class GameAssets{
     }
 }
 
+class Music{
+    constructor(){
+    this.audio = new Audio();
+       this.audio.src = "media/music.mp3";
+    }
+    playMusic(){
+        this.audio.volume = 0.2;
+        this.audio.play();
+        this.audio.cloneNode();
+    }
+}
 
 //soldado
 class Character extends GameAssets{
@@ -44,12 +54,10 @@ class Character extends GameAssets{
         this.vy = 0;
         this.hp = 1000;
         this.img1 = new Image();
-        this.imgShot = new Image();
         this.img1.src = "/media/soldier/soldierStatic.png";
-        this.imgShot.src = "/media/soldier/soldierShoot.png";
-
-         
-
+        this.audio = new Audio();
+        this.audio.src = 'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-little-robot-sound-factory/little_robot_sound_factory_Jingle_Win_Synth_03.mp3'
+       
     } 
     draw(){
         this.x += this.vx;
@@ -72,8 +80,6 @@ class Character extends GameAssets{
     }
     moveRight(){
         this.vx+=velocity;
-        ctx.drawImage(this.imgShot, this.x, this.y, this.width, this.height)  
-       
      }
      moveUp(){
         this.vy-=velocity;
@@ -108,6 +114,11 @@ class Character extends GameAssets{
       }
     damaged(){
         this.hp-=50;
+    }
+    moneyWin(){
+        this.audio.volume = 0.2;
+        this.audio.play();
+        this.audio.cloneNode();
     }
     
 
@@ -184,6 +195,8 @@ class Zombie extends GameAssets {
        this.liveStatus = true;
        this.image.src = "/media/zombie/zombieOne.png";
        this.healthZombie = 500;
+       this.audio = new Audio();
+       this.audio.src = 'https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-23735/zapsplat_horror_monster_demon_screech_002_23962.mp3'
     }
     draw(){
         this.x-=2;
@@ -203,8 +216,12 @@ class Zombie extends GameAssets {
     dies(){
         if(this.healthZombie === 0){
             this.liveStatus = false
+            this.audio.volume = 0.2;
+        this.audio.play();
+        this.audio.cloneNode();
         }
     }
+    
 
        
 }
@@ -276,7 +293,7 @@ class Lines{
         this.width = width;
         this.height = height;
         this.vx = 0;
-        this.color = 'yellow'
+        this.color = 'transparent';
     }
      draw(){
         this.x -= this.vx + velocityBack;
@@ -286,6 +303,7 @@ class Lines{
 }
 
 
+
 // INSTANCIAS DEL JUEGO
 //fondo del laberinto
 const firstBackground = "/media/level1-back.png";
@@ -293,10 +311,10 @@ const background = new Background(0, 0, 2500, 500, firstBackground);
 
 //soldado-jugador1
 // const player1 = "/media/soldier/soldierStatic.png"
- const shooting = "/media/soldier/soldierShoot.png"
+// const shooting = "/media/soldier/soldierShoot.png"
 const soldier = new Character( 100,100, 90, 90);
- const soldierShoot = new Character( 100,100, 90, 90, shooting);
-
+//  const soldierShoot = new Character( 100,100, 90, 90, shooting);
+const music = new Music();
 //BARRAS DE VIDA
 const lifeCien = "/media/else/status100.png";
 const lifeNov = "/media/else/status90.png";
@@ -363,8 +381,8 @@ const meta = new Lines( 2450, 410, 150, 150)
 
 // FUNCIONES DE APOYO
 function startGame(){
-    
     startScreen.style.display = "none";
+    music.playMusic();
    if(intervalId)return;
     intervalId = setInterval(()=>{
         update();
@@ -399,7 +417,6 @@ function update(){
     linea7.draw();
     linea8.draw();
     linea9.draw();
-    
     
     drawZombies();
     printBullets();
@@ -476,6 +493,7 @@ function drawMoney(){
         if(soldier.isTouching(bills)){
             bills.isCollected = true;
             earnedMoney.push(bills);
+            soldier.moneyWin();
          };
     })
 }
@@ -539,9 +557,9 @@ function bulletIsGone(){
 function runScore(){
     let scoreSoldier = diedZombies.length ;
     let numZombies= document.querySelector("#numZombies");
-    ctxStatus.font = "25px sans-serif";
+    ctxStatus.font = "30px monospace";
     ctxStatus.fillStyle = "orange";
-    ctxStatus.fillText( `Died zombies:${scoreSoldier}`, 50, 50);
+    ctxStatus.fillText( `Zombies muertos:${scoreSoldier}`, 50, 50);
     numZombies.textContent = `${scoreSoldier}`;
 }
 
@@ -584,9 +602,9 @@ function finalScore(){
         scoreTotal += 10 //por cada zombie Muerto son 5 puntos en el score
     });
 
-    ctxStatus.font = "25px sans-serif";
+    ctxStatus.font = "30px monospace";
     ctxStatus.fillStyle = "#fff";
-    ctxStatus.fillText( `Score:${scoreTotal}`, 400, 50);
+    ctxStatus.fillText( `Puntaje:${scoreTotal}`, 400, 50);
     totalNum.textContent = `${scoreTotal}`;
 }
 
@@ -630,6 +648,7 @@ function checkObstacle(){
 
 document.onkeydown = (event) =>{
      teclas[event.key]=true;
+    
 }
 document.onkeyup = (evento)=>{
      teclas[evento.key] =false;
